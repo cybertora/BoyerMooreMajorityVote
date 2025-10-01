@@ -1,7 +1,9 @@
 package algorithms;
 
+import metrics.MetricsTracker;
+
 public class BoyerMooreMajorityVote {
-    public static int findMajorityElement(int[] nums) {
+    public static int findMajorityElement(int[] nums, MetricsTracker tracker) {
     int candidate = -1;
     int count = 0;
 
