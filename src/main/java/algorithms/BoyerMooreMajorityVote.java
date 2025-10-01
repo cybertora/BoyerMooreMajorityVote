@@ -22,3 +22,4 @@ public class BoyerMooreMajorityVote {
     return count > nums.length / 2 ? candidate : -1;
 }
 }
+
