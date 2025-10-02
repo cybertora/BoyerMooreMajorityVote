@@ -1,9 +1,12 @@
 package algorithms;
 
+import metrics.MetricsTracker;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoyerMooreMajorityTest {
+
+    private MetricsTracker tracker;
 
     @Test
     void testEmptyArray() { // Тест пустого массива.
