@@ -1,21 +1,31 @@
 package metrics;
 
 public class MetricsTracker {
-    private long comparisons = 0;
-    private long swaps = 0;
-    private long arrayAccesses = 0;
+    private int comparisons = 0;
+    private int arrayAccesses = 0;
+    private long lastExecutionTimeNs = 0;
 
-    public void incrementComparison() { comparisons++; }
-    public void incrementSwap() { swaps++; }
-    public void incrementArrayAccess() { arrayAccesses++; }
+    public void incrementComparisons() {
+        comparisons++;
+    }
 
-    public long getComparisons() { return comparisons; }
-    public long getSwaps() { return swaps; }
-    public long getArrayAccesses() { return arrayAccesses; }
+    public void incrementArrayAccesses() {
+        arrayAccesses++;
+    }
 
-    public void reset() {
-        comparisons = 0;
-        swaps = 0;
-        arrayAccesses = 0;
+    public int getComparisons() {
+        return comparisons;
+    }
+
+    public int getArrayAccesses() {
+        return arrayAccesses;
+    }
+
+    public long getLastExecutionTimeNs() {
+        return lastExecutionTimeNs;
+    }
+
+    public void setLastExecutionTimeNs(long timeNs) {
+        this.lastExecutionTimeNs = timeNs;
     }
 }
