@@ -11,14 +11,14 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Warmup(iterations = 2, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(value = 1)
 public class BoyerMooreMajorityBench {
-    @Param({"100", "1000", "10000", "100000"})
+    @Param({"100", "1000"})
     private int size;
 
-    @Param({"sorted", "random", "reverse", "nearly"})
+    @Param({"random", "sorted"})
     private String type;
 
     private int[] nums;
@@ -33,7 +33,7 @@ public class BoyerMooreMajorityBench {
             nums[i] = majority;
         }
         for (int i = majorityCount; i < size; i++) {
-            nums[i] = rand.nextInt(100) + 100; // Distinct from majority
+            nums[i] = rand.nextInt(100) + 100;
         }
 
         switch (type) {
@@ -62,10 +62,7 @@ public class BoyerMooreMajorityBench {
     public void measurePerformance(Blackhole blackhole) {
         MetricsTracker tracker = new MetricsTracker();
         int result = BoyerMooreMajorityVote.findMajorityElement(nums, tracker);
-        blackhole.consume(result); // Prevent optimization
-        System.out.printf("Size: %d, Type: %s, Comparisons: %d, Accesses: %d, Time: %d ns%n",
-                size, type, tracker.getComparisons(), tracker.getArrayAccesses(),
-                tracker.getLastExecutionTimeNs()); // Assuming you add this method
+        blackhole.consume(result);
     }
 
     private void reverse(int[] arr) {
@@ -84,10 +81,7 @@ public class BoyerMooreMajorityBench {
             arr[j] = temp;
         }
     }
-
-    // Add this to PerformanceTracker.java if not present
-    public long getLastExecutionTimeNs() {
-        // Implement timing logic (e.g., use System.nanoTime() around the method call)
-        return 0; // Placeholder, update with actual timing
+    public static void main(String[] args) throws Exception {
+        org.openjdk.jmh.Main.main(args);
     }
 }
